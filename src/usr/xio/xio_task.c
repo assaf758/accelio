@@ -340,6 +340,10 @@ void xio_tasks_pool_dump_used(struct xio_tasks_pool *q)
 					  pool_name,
 					  pslab->array[i],
 					  pslab->array[i]->tlv_type);
+				ERROR_LOG("connection:%p, session:%p, trans_hndl:%p\n",
+					  pslab->array[i]->connection,
+					  pslab->array[i]->session,
+					  pslab->array[i]->context);
 			}
 	}
 }

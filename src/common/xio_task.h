@@ -308,7 +308,14 @@ pool_exhausted:
 	ERROR_LOG("%s - pool exhausted. used:%d max_nr:%d\n",
 		  q->params.pool_name,
 		  q->curr_used , q->params.max_nr);
-	return NULL;
+
+	if (q->curr_used) {
+		ERROR_LOG("tasks inventory: %d/%d = missing:%d\n",
+			  q->curr_alloced - q->curr_used, q->curr_alloced,
+			  q->curr_used);
+		xio_tasks_pool_dump_used(q);
+	}
+    return NULL;
 }
 
 /*---------------------------------------------------------------------------*/
