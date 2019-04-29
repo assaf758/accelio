@@ -2332,8 +2332,8 @@ static int xio_tcp_rd_req_header(struct xio_tcp_transport *tcp_hndl,
 	task->status = 0;
 	xio_transport_assign_in_buf(&tcp_hndl->base, task);
 	if (task->status) {
-		WARN_LOG("assign_in_buf: error:%d. rdma read is ignored\n", 
-			  task->status);
+		/* WARN_LOG("assign_in_buf: error:%d. rdma read is ignored\n", */
+		/* 	  task->status); */
 		return -1;
 	}
 	if (task->is_assigned) {
@@ -2543,7 +2543,7 @@ static int xio_tcp_on_recv_req_header(struct xio_tcp_transport *tcp_hndl,
 		/* handle RDMA READ equivalent. */
 		retval = xio_tcp_rd_req_header(tcp_hndl, task);
 		if (unlikely(retval)) {
-			ERROR_LOG("tcp read header failed\n");
+			/* ERROR_LOG("tcp read header failed\n"); */
 			goto cleanup;
 		}
 		break;
@@ -2558,8 +2558,8 @@ static int xio_tcp_on_recv_req_header(struct xio_tcp_transport *tcp_hndl,
 
 cleanup:
 	retval = xio_errno(); /* no need get_last_socket_error() */
-	ERROR_LOG("xio_tcp_on_recv_req failed. (errno=%d %s)\n", retval,
-		  xio_strerror(retval));
+	/* ERROR_LOG("xio_tcp_on_recv_req failed. (errno=%d %s)\n", retval, */
+	/* 	  xio_strerror(retval)); */
 	if (header_err)
 		xio_transport_notify_observer_error(&tcp_hndl->base, retval);
 	else
@@ -3262,7 +3262,7 @@ int xio_tcp_rx_ctl_handler(struct xio_tcp_transport *tcp_hndl, int batch_nr)
 					ERROR_LOG("unknown message type:0x%x\n",
 						  task->tlv_type);
 				if (unlikely(retval < 0)) {
-					ERROR_LOG("error reading header\n");
+					/* ERROR_LOG("error reading header\n"); */
 					return retval;
 				}
 			}
